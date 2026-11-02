@@ -1,0 +1,220 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="MA3 Macros">
+<meta name="theme-color" content="#7F0500"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-180.png">
+<title>MA3 Macros</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;background:#000;color:#ddd;font:13px -apple-system,system-ui,Roboto,sans-serif;overflow:hidden;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+input{-webkit-user-select:text;user-select:text;font:16px -apple-system,system-ui,Roboto,sans-serif}
+.v{position:fixed;inset:0;display:none;flex-direction:column;background:#000}.v.on{display:flex}
+.tb{display:flex;align-items:center;background:#7F0500;border-bottom:1px solid #4a0300;padding-top:env(safe-area-inset-top);height:calc(42px + env(safe-area-inset-top));flex:none}
+.ic{width:42px;height:42px;background:#5c0400;display:flex;align-items:center;justify-content:center;color:#e8b4b0;font-size:20px;flex:none}
+.tt{flex:1;color:#fff;font-size:15px;font-weight:500;padding-left:12px}
+.cl{width:42px;height:42px;border-left:1px solid #4a0300;display:flex;align-items:center;justify-content:center;color:#f0c8c5;font-size:20px;flex:none}
+#nm{flex:1;min-width:0;margin:0 8px 0 10px;height:30px;background:#2b0300;border:1px solid #a33a35;border-radius:3px;padding:0 8px;color:#fff}
+#pool{flex:1;overflow:auto;display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:72px;gap:2px;padding:2px;align-content:start}
+.c{position:relative;background:#101010;border:1px solid #1c1c1c}
+.c i{position:absolute;top:2px;left:4px;font-style:normal;font-size:11px;color:#525252;z-index:2}
+.c.f{background:#47484b;border-color:#47484b;border-top:2px solid #9a0a05}.c.f i{color:#8c8c90}
+.c.f span{position:absolute;inset:14px 3px 2px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:12px;line-height:1.2;color:#f0f0f0;overflow:hidden}
+.c.s{outline:2px solid #fff;outline-offset:-2px;z-index:3}
+.btns{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:8px 8px calc(8px + env(safe-area-inset-bottom));background:#141414;border-top:1px solid #2c2c2c;flex:none}
+.b{position:relative;background:#3D3D3D;border:1px solid #525252;color:#525252;font-size:12px;font-weight:500;letter-spacing:.02em;text-align:center;padding:4px 2px;border-radius:3px;min-height:46px;display:flex;align-items:center;justify-content:center;line-height:1.15}
+.b::before{content:"";position:absolute;left:1px;right:1px;top:0;height:1px;background:rgba(255,255,255,.09)}
+.b.on,.b.fl{background:#525252;border-color:#FF8432;color:#FF8432}
+.b.on::after,.b.fl::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:#FF8432}
+#sc{flex:1;overflow:auto;position:relative;background:#000}
+.r{display:grid;grid-template-columns:24px 1fr 38px 50px 34px 48px;gap:1px;background:#000;margin-bottom:1px;font-size:11px;color:#cfcfcf}
+.r>div{background:#262626;padding:5px 4px;min-height:32px;display:flex;align-items:center;line-height:1.25;word-break:break-word;touch-action:pan-y}
+.r>.n0{background:#1b1b1b;color:#777;justify-content:center;padding:5px 0;touch-action:none}
+.r>.cm{display:block}.r>.mid{justify-content:center;padding:5px 0;letter-spacing:-.02em}
+.r.h{position:sticky;top:0;z-index:2}
+.r.h>div{background:#3D3D3D;color:#d6d6d6;font-weight:500;justify-content:center;min-height:28px;white-space:nowrap;padding:4px 0;letter-spacing:-.03em;border-bottom:1px solid #525252}
+.r>.cm.sel{background:#03BEED;color:#000}.r>.act{outline:1px solid #fff;outline-offset:-1px}
+.dim{color:#8a8a8a!important}.r>.blk{background:#000}
+.k{color:#05D506}.n{color:#05D7D8}.q{color:#AD0AAF}.h{color:#E8E803}.v{color:#E4E4E5}
+.mo{position:fixed;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;z-index:9;padding:12px}
+.mo.top{align-items:flex-start;padding-top:calc(60px + env(safe-area-inset-top))}
+.pop{width:min(100%,420px);background:#1c1c1c;border:1px solid #525252;border-radius:6px;overflow:hidden}
+.hd{background:#3D3D3D;color:#ddd;font-size:14px;padding:8px 12px}
+.ln{display:flex;border-top:1px solid #000}.lb{background:#2d2d2d;color:#bbb;padding:11px 8px;width:72px;font-size:12px;flex:none}
+.tx{position:relative;flex:1;background:#111;min-width:0;min-height:40px}
+.tx input{width:100%;height:40px;background:transparent;border:0;outline:0;color:#fff;padding:0 10px}
+.tx input.cin{position:absolute;inset:0;color:transparent;caret-color:#fff}
+.hl{position:absolute;inset:0;overflow:hidden;white-space:pre;font:16px -apple-system,system-ui,Roboto,sans-serif;padding:0 10px;line-height:40px;pointer-events:none}
+.pv{padding:10px;font:16px -apple-system,system-ui,Roboto,sans-serif;white-space:pre-wrap;word-break:break-word;min-height:40px}
+.bd{padding:10px 12px;max-height:50vh;overflow:auto;color:#ccc;font-size:14px;line-height:1.4}
+.it{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #2a2a2a}
+.it input{width:22px;height:22px;accent-color:#FF8432;flex:none}
+.bt{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:8px;background:#141414}
+#toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom));transform:translateX(-50%);background:#3D3D3D;border:1px solid #FF8432;color:#eee;padding:8px 12px;border-radius:4px;display:none;z-index:20;font-size:13px;max-width:90vw;text-align:center}
+</style></head><body>
+<div class="v on" id="vp">
+ <div class="tb"><div class="ic">▦</div><div class="tt">Macro pool</div><div class="cl" id="gear" style="border:0">⚙︎</div></div>
+ <div id="pool"></div>
+ <div class="btns"><div class="b" id="bC">Copy</div><div class="b" id="bD">Delete</div><div class="b" id="bI">Import</div><div class="b" id="bO">Oops</div></div>
+</div>
+<div class="v" id="ve">
+ <div class="tb"><div class="ic">✎</div><input id="nm" autocapitalize="off" autocorrect="off" spellcheck="false"><div class="cl" id="xc">✕</div></div>
+ <div id="sc"><div id="tbl"></div></div>
+ <div class="btns"><div class="b" id="eI">Insert New Line</div><div class="b" id="eD">Delete</div><div class="b" id="eO">Oops</div><div class="b" id="eX">Export</div></div>
+</div>
+<div id="toast"></div>
+<script>
+const $=s=>document.querySelector(s);
+const KW=('Absolute Acceleration Action ActivationGroup Agenda Align AlignTransition Appearance Assign At Attribute AutoCreate AutoStore Bitmap Black Blind Block BPM Call Camera Capture ChangeDestination Channel ChannelFunctionDefault ChannelSet Chat CleanUp Clear ClearActive ClearAll ClearSelection Clone CommandDelay Collect Collection Color ColorDefinition ColorTheme Configuration Console Cook Copy Cue CueAbsolute CueDelay CueFade CueInDelay CueInFade CueOutDelay CueOutFade CueRelative CueUpdate CurrentEnvironment CurrentUser CurrentUserProfile Cut DataPool Deactivate Deceleration Default Delay Delete DeleteGlobalVariable DeleteUserVariable Disconnect Dismiss Display DMXAddress DMXLayer DMXReadout DMXUniverse DoubleSpeed Down Drive Echo Edit EditRecipe EditSetting Effect Eject EncoderBank EncoderBar EndIf Environment Exchange Executor Export Extension Extract Fade FaderMaster FaderRate FaderSpeed FaderTime FeatureGroup Filter Fix Fixture FixtureType Flash Flip Fog Freeze Full Gel Generic Generator GetGlobalVariable GetUserVariable Go Go+ Go- Goto Grid GridPosition GridStore GoboImage Group HalfSpeed Help Highlight Hold Houselights If IfActive IfOutput IfProgrammer Image Import Index Insert Integrate Interface Invert Invite Key Keyboard Kill KnockIn KnockOut Label Layout Learn LearnSpeed Library List Load Loaded LoadShow Locate Lock LogIn LogOut Lowlight Lua LuaFile Macro MArker Master MAtricks Measure Media Menu Mesh MessageCenter Move Multipatch MyRunningPlayback MyRunningPreset MyRunningMacro MyRunningSequence Natural NDI NewShow Next NextY NextZ NonDim Normal Note NShot Off Offset On onPC OSC Oops OutputLayer Page Part Park Paste Patch Pause Percent PercentFine Phase Physical Plugin Preset PresetUpdate Press Preview Previous PreviousY PreviousZ Programmer Property PSR Pyro Quickey Rate RDM Readout Reboot Recast Reconnect Record Relative Release ReloadAllPlugins ReloadUI Remote RemoteCommand Remove RenderQuality Reset Restart ReSync Root RunningMacro RunningPlayback RunningPreset RunningSequence SaveShow ScreenConfiguration ScreenContent Scribble Seconds Select Selection SelectFixtures SendMIDI SendOSC Session Sequence Set SetGlobalVariable SetUserVariable Shape Shuffle ShutDown SnapDelay Sound SoundChannel Solo SpecialExecutor Speed Speed1 SpeedMaster Stage Station Step Stomp Store Swap Tag Temp Thru Time Timecode TimecodeSlot Timer Toggle Top TopUp Transition Type UIChannel Unblock Unlock Unpark Unpress Up Update UpdateContent User User1 User2 UserProfile Version Video View ViewButton Width World Zero').split(' ');
+const KL=Object.fromEntries(KW.map(k=>[k.toLowerCase(),k])),
+PRI='Store Sequence Executor Macro Group Fixture Preset Label Assign Appearance At Cue Goto Delete Copy Move Edit Set Select Off On Go Thru Layout Page Master Plugin Clear ClearAll Park Unpark Call Lua Update Insert Remove Release Toggle Flash Blind Highlight Solo Full Zero Default If EndIf Channel Attribute Property'.split(' '),
+AL={s:'Store',st:'Store',co:'Copy'},OPT='/Overwrite /Merge /Remove /NoConfirmation /Screen'.split(' ');
+const pr=k=>{const i=PRI.indexOf(k);return i<0?999:i};
+function km(w,L){const l=w.toLowerCase();
+ if(!L){if(KL[l])return KL[l];if(AL[l])return AL[l];if(l.length<2)return null;L=KW}
+ const c=L.filter(k=>k.toLowerCase().startsWith(l));return c.length?c.sort((a,b)=>pr(a)-pr(b)||a.length-b.length)[0]:null}
+function cls(w){
+ if(w[0]=='$')return{y:'v'};
+ if(/^[+-]?\d+(\.\d+)*$/.test(w))return{y:'n'};
+ if(w[0]=='/'&&w.length>1){const o=km(w,OPT);if(o)return{y:'k',d:o}}
+ if(/^[;=+\-*%\/<>.]+$/.test(w))return{y:'k'};
+ const k=km(w);return k?{y:'k',d:k}:{y:'v'}}
+function tok(s){const t=[],n=s.length;let i=0,j;
+ while(i<n){const c=s[i];j=i;
+  if(/\s/.test(c)){while(j<n&&/\s/.test(s[j]))j++;t.push({r:s.slice(i,j),y:'ws'})}
+  else if(c=='"'||c=="'"){j=i+1;while(j<n&&s[j]!=c)j++;j=Math.min(j+1,n);t.push({r:s.slice(i,j),y:'q',sq:c=="'"})}
+  else if(c=='#'){if(s[i+1]=='['){j=s.indexOf(']',i);j=j<0?n:j+1}else while(j<n&&!/\s/.test(s[j]))j++;t.push({r:s.slice(i,j),y:'h'})}
+  else{while(j<n&&!/\s/.test(s[j])&&s[j]!='"'&&s[j]!="'")j++;const w=s.slice(i,j);t.push({r:w,...cls(w)})}
+  i=j}
+ t.forEach((x,i)=>{if(!x.sq)return;let a=i-1;while(a>=0&&t[a].y=='ws')a--;if(a<0)return;
+  if(t[a].y=='n'){let b=a-1;while(b>=0&&t[b].y=='ws')b--;if(b>=0&&t[b].y=='k')a=b;else return}
+  else if(t[a].y!='k')return;
+  for(let k=a;k<=i;k++)if(t[k].y!='ws')t[k].y='h'});
+ return t}
+const X=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const hl=(t,ex)=>t.map(x=>x.y=='ws'?x.r:'<span class="'+x.y+'">'+X(ex&&x.d?x.d:x.r)+'</span>').join('');
+const hc=s=>hl(tok(s),0);
+const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&apos;');
+const guid=()=>[...crypto.getRandomValues(new Uint8Array(16))].map(b=>b.toString(16).padStart(2,'0').toUpperCase()).join(' ');
+const nl=c=>({guid:guid(),cmd:c||'',wait:'Follow',en:true,add:false,ex:true});
+function toXml(m){let o='\uFEFF<?xml version="1.0" encoding="UTF-8"?>\n<GMA3 DataVersion="'+(m.dv||'2.5.1.1')+'">\n    <Macro Name="'+esc(m.name)+'" Guid="'+m.guid+'">\n';
+ for(const l of m.lines){let a=' Guid="'+l.guid+'"';if(l.cmd)a+=' Command="'+esc(l.cmd)+'"';
+  if(l.wait!=='Follow')a+=' Wait="'+(isNaN(l.wait)?esc(l.wait):(+l.wait).toFixed(3))+'"';
+  if(!l.en)a+=' Enabled="No"';if(l.add)a+=' AddToCmdline="Yes"';if(!l.ex)a+=' Execute="No"';
+  o+='        <MacroLine'+a+'/>\n'}
+ return o+'    </Macro>\n</GMA3>\n'}
+function parse(x){const d=new DOMParser().parseFromString(x.replace(/^\uFEFF/,''),'text/xml');
+ if(d.querySelector('parsererror'))throw Error('Not a valid XML file');const dv=d.documentElement.getAttribute('DataVersion');
+ return[...d.getElementsByTagName('Macro')].map(e=>({name:e.getAttribute('Name')||'Macro',guid:e.getAttribute('Guid')||guid(),dv,
+  lines:[...e.getElementsByTagName('MacroLine')].map(l=>({guid:l.getAttribute('Guid')||guid(),cmd:l.getAttribute('Command')||'',wait:l.getAttribute('Wait')||'Follow',
+   en:l.getAttribute('Enabled')!='No',add:l.getAttribute('AddToCmdline')=='Yes',ex:l.getAttribute('Execute')!='No'}))}))}
+
+let S={slots:{},cfg:{repo:'',path:'',branch:'',token:''}};
+try{const j=JSON.parse(localStorage.getItem('ma3s'));if(j)S=j;S.cfg=Object.assign({repo:'',path:'',branch:'',token:''},S.cfg)}catch(e){}
+const save=()=>{try{localStorage.setItem('ma3s',JSON.stringify(S))}catch(e){}};
+let pf=null;['pointerup','touchend'].forEach(ev=>addEventListener(ev,()=>{if(pf){const x=pf;pf=null;x.blur();x.focus()}},true));
+function toast(m){const t=$('#toast');t.textContent=m;t.style.display='block';clearTimeout(t._t);t._t=setTimeout(()=>t.style.display='none',2800)}
+function flash(el){el.classList.add('fl');setTimeout(()=>el.classList.remove('fl'),500)}
+function dlg(html,top,cancel){const el=document.createElement('div');el.className='mo'+(top?' top':'');el.innerHTML='<div class="pop">'+html+'</div>';
+ const t0=Date.now();if(cancel)el.addEventListener('pointerdown',e=>{if(e.target==el&&Date.now()-t0>400)el.remove()});document.body.appendChild(el);return el}
+const focusIn=(i,lng)=>{if(lng)pf=i;else i.focus()};
+const ask=m=>new Promise(r=>{const el=dlg('<div class="hd">Overwrite</div><div class="bd">'+X(m)+'</div><div class="bt"><div class="b" id="ok">OK</div><div class="b" id="cn">Cancel</div></div>');
+ el.querySelector('#ok').onclick=()=>{el.remove();r(true)};el.querySelector('#cn').onclick=()=>{el.remove();r(false)}});
+
+/* GitHub */
+const encP=p=>p.split('/').map(encodeURIComponent).join('/');
+function gh(path,o={}){const c=S.cfg,q=(c.branch&&!o.method&&!path.startsWith('http'))?'?ref='+encodeURIComponent(c.branch):'';
+ return fetch(path.startsWith('http')?path:'https://api.github.com/repos/'+c.repo+'/'+path+q,{cache:'no-store',...o,headers:{Authorization:'Bearer '+c.token,Accept:'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28',...(o.headers||{})}})}
+const ghErr=r=>Error(r.status==401?'Token rejected':r.status==404?'Not found. Check repo, folder and token access':'GitHub error '+r.status);
+const need=()=>{if(!S.cfg.repo||!S.cfg.token){toast('Open settings (gear) and add your repo and token');return true}};
+const dir=()=>S.cfg.path.replace(/^\/+|\/+$/g,'');
+
+/* Pool */
+let mode='',src=0,poolU=[];
+const push=()=>{poolU.push(JSON.stringify(S.slots));if(poolU.length>50)poolU.shift()};
+const clone=m=>{const c=JSON.parse(JSON.stringify(m));c.guid=guid();c.lines.forEach(l=>l.guid=guid());return c};
+function rp(){let h='';for(let i=1;i<=128;i++){const m=S.slots[i];h+='<div class="c'+(m?' f':'')+(src==i?' s':'')+'" data-i="'+i+'"><i>'+i+'</i>'+(m?'<span>'+X(m.name)+'</span>':'')+'</div>'}
+ $('#pool').innerHTML=h;$('#bC').classList.toggle('on',mode=='copy');$('#bD').classList.toggle('on',mode=='del')}
+$('#pool').onclick=e=>{const c=e.target.closest('.c');if(!c)return;const i=+c.dataset.i,m=S.slots[i];
+ if(mode=='copy'){if(m)src=i;else if(src&&S.slots[src]){push();S.slots[i]=clone(S.slots[src]);save()}}
+ else if(mode=='del'){if(m){push();delete S.slots[i];save()}}
+ else return openEd(i);
+ rp()};
+$('#bC').onclick=()=>{mode=mode=='copy'?'':'copy';src=0;rp()};
+$('#bD').onclick=()=>{mode=mode=='del'?'':'del';src=0;rp()};
+$('#bO').onclick=function(){flash(this);if(poolU.length){S.slots=JSON.parse(poolU.pop());save();src=0;rp()}};
+$('#bI').onclick=async()=>{if(need())return;
+ const el=dlg('<div class="hd">Import</div><div class="bd" id="il">Loading…</div><div class="bt"><div class="b" id="ok">OK</div><div class="b" id="cn">Cancel</div></div>');
+ el.querySelector('#cn').onclick=()=>el.remove();let files=[];const il=el.querySelector('#il');
+ try{const r=await gh('contents'+(dir()?'/'+encP(dir()):''));if(!r.ok)throw ghErr(r);const j=await r.json();
+  files=(Array.isArray(j)?j:[]).filter(f=>f.type=='file'&&/\.xml$/i.test(f.name));
+  il.innerHTML=files.length?files.map((f,i)=>'<label class="it"><input type="checkbox" value="'+i+'">'+X(f.name)+'</label>').join(''):'No XML files found in this folder.'}
+ catch(e){il.textContent=e.message}
+ el.querySelector('#ok').onclick=async()=>{const pick=[...el.querySelectorAll('input:checked')].map(i=>files[+i.value]);if(!pick.length)return el.remove();
+  il.textContent='Importing…';let n=0,full=0;push();
+  try{for(const f of pick){const r=await gh(f.url,{headers:{Accept:'application/vnd.github.raw+json'}});if(!r.ok)throw ghErr(r);
+   for(const m of parse(await r.text())){let i=1;while(S.slots[i]&&i<=128)i++;if(i>128){full=1;break}S.slots[i]=m;n++}}
+   save();rp();el.remove();toast(full?'Pool full. Imported '+n:'Imported '+n+(n==1?' macro':' macros'))}
+  catch(e){save();rp();il.textContent=e.message}}};
+$('#gear').onclick=()=>{const c=S.cfg,f=(k,l,t)=>'<div class="ln"><div class="lb">'+l+'</div><div class="tx"><input id="s_'+k+'" type="'+(t||'text')+'" autocapitalize="off" autocorrect="off" spellcheck="false" value="'+esc(c[k])+'"></div></div>';
+ const el=dlg('<div class="hd">GitHub settings</div>'+f('repo','Repo')+f('path','Folder')+f('branch','Branch')+f('token','Token','password')+'<div class="bd" style="font-size:12px;color:#888">Repo as owner/name. Folder and branch are optional. The token stays on this phone.</div><div class="bt"><div class="b" id="ok">Save</div><div class="b" id="cn">Cancel</div></div>',1);
+ el.querySelector('#cn').onclick=()=>el.remove();
+ el.querySelector('#ok').onclick=()=>{['repo','path','branch','token'].forEach(k=>c[k]=el.querySelector('#s_'+k).value.trim());save();el.remove();toast('Settings saved')}};
+
+/* Editor */
+let ED=null;
+const show=id=>{$('#vp').classList.toggle('on',id=='vp');$('#ve').classList.toggle('on',id=='ve')};
+function openEd(i){const ex=S.slots[i];ED={slot:i,isNew:!ex,m:ex||{name:'Macro '+i,guid:guid(),lines:[]},sel:new Set(),del:false,u:[],act:'',pre:JSON.stringify(S.slots)};
+ $('#nm').value=ED.m.name;$('#eD').classList.remove('on');show('ve');re()}
+function closeEd(){if(ED.isNew&&(ED.m.lines.length||ED.m.name!='Macro '+ED.slot))S.slots[ED.slot]=ED.m;
+ if(JSON.stringify(S.slots)!=ED.pre){poolU.push(ED.pre);if(poolU.length>50)poolU.shift()}save();ED=null;show('vp');rp()}
+$('#xc').onclick=()=>{document.activeElement.blur();closeEd()};
+const snap=()=>{ED.u.push(JSON.stringify({name:ED.m.name,lines:ED.m.lines}));if(ED.u.length>60)ED.u.shift()};
+const upd=()=>{if(!ED.isNew)save();re()};
+$('#nm').onfocus=()=>snap();$('#nm').oninput=e=>{ED.m.name=e.target.value;if(!ED.isNew)save()};
+function re(){const L=ED.m.lines;let h='<div class="r h"><div>No</div><div>Command</div><div>Wait</div><div>Enabled</div><div>CMD</div><div>Execute</div></div>';
+ const yn=(c,v,i)=>'<div class="mid'+(v?'':' dim')+'" data-c="'+c+'" data-i="'+i+'">'+(v?'Yes':'No')+'</div>';
+ L.forEach((l,i)=>{h+='<div class="r"><div class="n0" data-c="no" data-i="'+i+'">'+(i+1)+'</div><div class="cm'+(ED.sel.has(l.guid)?' sel':'')+(ED.act==l.guid?' act':'')+'" data-c="cmd" data-i="'+i+'">'+hc(l.cmd)+'</div>'
+  +'<div class="mid'+(l.wait=='Follow'?'':'')+'" data-c="wait" data-i="'+i+'">'+(isNaN(l.wait)?X(l.wait):+l.wait)+'</div>'+yn('en',l.en,i)+yn('add',l.add,i)+yn('ex',l.ex,i)+'</div>'});
+ h+='<div class="r"><div class="n0" data-c="new" data-i="'+L.length+'"></div><div class="cm dim" data-c="new" data-i="'+L.length+'">New Macro Line</div><div class="blk"></div><div class="blk"></div><div class="blk"></div><div class="blk"></div></div><div style="height:120px"></div>';
+ $('#tbl').innerHTML=h}
+const paint=()=>$('#tbl').querySelectorAll('.cm[data-c=cmd]').forEach(c=>{const l=ED.m.lines[+c.dataset.i];c.classList.toggle('sel',!!l&&ED.sel.has(l.guid))});
+function cmdPop(v,cb,lng){const el=dlg('<div class="hd">Edit Command</div><div class="ln"><div class="lb">Command</div><div class="tx"><div class="hl"><span></span></div><input class="cin" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="done"></div></div><div class="ln"><div class="lb">Preview</div><div class="tx pv"></div></div>',1,1);
+ const i=el.querySelector('input'),h=el.querySelector('.hl span'),pv=el.querySelector('.pv');i.value=v;
+ const u=()=>{const t=tok(i.value);h.innerHTML=hl(t,0);pv.innerHTML=hl(t,1);h.style.transform='translateX('+-i.scrollLeft+'px)'};
+ ['input','keyup','scroll','click'].forEach(e=>i.addEventListener(e,u));u();
+ i.onkeydown=e=>{if(e.key=='Enter'){e.preventDefault();cb(i.value.trim());el.remove()}};focusIn(i,lng)}
+function waitPop(l,lng){const el=dlg('<div class="hd">Wait</div><div class="ln"><div class="lb">Seconds</div><div class="tx"><input inputmode="decimal" enterkeyhint="done" autocapitalize="off" placeholder="0 or empty = Follow"></div></div>',1,1);
+ const i=el.querySelector('input');i.value=l.wait=='Follow'?'':l.wait;
+ i.onkeydown=e=>{if(e.key=='Enter'){e.preventDefault();const v=i.value.trim().replace(',','.'),n=parseFloat(v);snap();l.wait=/^go$/i.test(v)?'Go':n>0?String(n):'Follow';el.remove();upd()}};focusIn(i,lng)}
+function addLine(v){if(!v)return;snap();ED.m.lines.push(nl(v));upd()}
+function lp(r,c){const l=ED.m.lines[r];
+ if(c=='new'||c=='cmd')return cmdPop(l?l.cmd:'',v=>{if(l){snap();l.cmd=v;upd()}else addLine(v)},1);
+ if(!l)return;if(c=='wait')return waitPop(l,1);
+ if(['en','add','ex'].includes(c)){snap();const nv=!l[c],tg=ED.sel.has(l.guid)?ED.m.lines.filter(x=>ED.sel.has(x.guid)):[l];tg.forEach(x=>x[c]=nv);upd()}}
+function tp(r,c){const l=ED.m.lines[r];
+ if(c=='new')return cmdPop('',addLine,0);
+ if(!l)return;
+ if(ED.del){snap();ED.m.lines.splice(r,1);ED.sel.delete(l.guid);upd();return}
+ ED.sel=(ED.sel.has(l.guid)&&ED.sel.size==1)?new Set():new Set([l.guid]);ED.act=ED.sel.size?l.guid:'';re()}
+let dn=null;const T=$('#tbl');
+T.addEventListener('contextmenu',e=>e.preventDefault());
+T.addEventListener('pointerdown',e=>{const c=e.target.closest('[data-c]');if(!c)return;dn={r:+c.dataset.i,c:c.dataset.c,x:e.clientX,y:e.clientY,mv:0,lg:0};
+ dn.t=setTimeout(()=>{if(dn&&!dn.mv){dn.lg=1;navigator.vibrate&&navigator.vibrate(12);lp(dn.r,dn.c)}},500)});
+T.addEventListener('pointermove',e=>{if(!dn)return;if(Math.hypot(e.clientX-dn.x,e.clientY-dn.y)>10){dn.mv=1;clearTimeout(dn.t)}
+ if(dn.mv&&dn.c=='no'){const t=document.elementFromPoint(e.clientX,e.clientY),q=t&&t.closest('[data-i]');
+  if(q){const a=Math.min(dn.r,+q.dataset.i),b=Math.max(dn.r,+q.dataset.i);ED.sel=new Set(ED.m.lines.slice(a,b+1).map(l=>l.guid));paint()}}});
+const up=e=>{if(!dn)return;clearTimeout(dn.t);const d=dn;dn=null;if(!d.lg&&!d.mv&&e.type=='pointerup')tp(d.r,d.c)};
+T.addEventListener('pointerup',up);T.addEventListener('pointercancel',up);
+$('#eI').onclick=function(){flash(this);snap();const L=ED.m.lines,i=L.findIndex(l=>ED.sel.has(l.guid));L.splice(i<0?L.length:i,0,nl());upd()};
+$('#eD').onclick=function(){if(ED.sel.size){snap();ED.m.lines=ED.m.lines.filter(l=>!ED.sel.has(l.guid));ED.sel.clear();upd()}else{ED.del=!ED.del;this.classList.toggle('on',ED.del)}};
+$('#eO').onclick=function(){flash(this);if(!ED.u.length)return;const o=JSON.parse(ED.u.pop());ED.m.name=o.name;ED.m.lines=o.lines;ED.sel.clear();$('#nm').value=o.name;upd()};
+$('#eX').onclick=async function(){flash(this);if(need())return;
+ const fn=(ED.m.name.replace(/[\\\/:*?"<>|]/g,'_').trim()||'macro'),p=(dir()?dir()+'/':'')+fn+'.xml';
+ try{const r=await gh('contents/'+encP(p));let sha;
+  if(r.ok){sha=(await r.json()).sha;if(!await ask(fn+'.xml already exists in the repo. Overwrite?'))return}else if(r.status!=404)throw ghErr(r);
+  let b='';new TextEncoder().encode(toXml(ED.m)).forEach(x=>b+=String.fromCharCode(x));
+  const w=await gh('contents/'+encP(p),{method:'PUT',body:JSON.stringify({message:'Export '+fn,content:btoa(b),sha,branch:S.cfg.branch||undefined})});
+  if(!w.ok)throw ghErr(w);toast('Exported '+fn+'.xml')}
+ catch(e){toast(e.message)}};
+rp();if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+</script></body></html>
